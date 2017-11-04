@@ -23,18 +23,17 @@ class CustomerHandler(tornado.web.RequestHandler):
     @coroutine
     def post(self):
         """On a post call, retrieve a customer record.
-        Requires the arguments 'email'.
+        If the 'email' argument is not provided, all customers will be returned.
         """
         CustomerHandler.logger.debug("CustomerHandler.post()")
 
         # Verify that the required arguments were provided.
         error_data = []
+        email = None
         try:
             email = self.get_argument("email")
         except MissingArgumentError:
-            error_data.append(
-                {"error": "MissingArgumentError",
-                 "detail": "The argument 'email' was not included in the message."})
+            CustomerHandler.logger.debug("Get all customers.")
 
         # If there were any errors, return the error message.
         if error_data is not None and len(error_data) is not 0:
@@ -46,10 +45,16 @@ class CustomerHandler(tornado.web.RequestHandler):
             CustomerHandler.logger.debug("Customer: %s", customer)
 
             if customer is None:
-                error_data.append(
-                    {"error": "CustomerNotFoundError",
-                     "detail": "The customer with email '{}' was not found in the database.".format(
-                         email)})
+                if email is None:
+                    error_data.append(
+                        {"error": "CustomerNotFoundError",
+                         "detail": "No customers found in the database.".format(
+                             email)})
+                else:
+                    error_data.append(
+                        {"error": "CustomerNotFoundError",
+                         "detail": "The customer with email '{}' was not found in the database.".format(
+                             email)})
 
             if error_data is not None and len(error_data) is not 0:
                 self.write(json.dumps(error_data))

@@ -48,23 +48,20 @@ class Customers(object):
         :return: A dictionary containing information about the customer.
         :rtype: dict
         """
-        try:
-            # Python 2
-            if not isinstance(email, (unicode, str)):
-                raise TypeError('email is not of type unicode or str.')
-        except NameError:
-            # Python 3
-            if not isinstance(email, str):
-                raise TypeError('email is not of type str.')
 
         Customers.logger.debug(
             "Customers.delete(%s)",
             email)
         client = MongoDBManager().get_client()
         database = client["Customers"]
-        sel_cust = database.customers.find_one({"email_address": email})
+
+        if email is None:
+            sel_cust = database.customers.find({})
+        else:
+            sel_cust = database.customers.find_one({"email_address": email})
+
         if sel_cust is not None:
-            return Customers._clone_customer(sel_cust)
+            return sel_cust
         else:
             return None
 
