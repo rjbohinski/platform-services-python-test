@@ -16,7 +16,7 @@ from tornado.testing import AsyncHTTPClient
 
 
 class TestOrderHandler(tornado.testing.AsyncTestCase):
-    """Tests the /rewards endpoint."""
+    """Tests the /order endpoint."""
 
     @tornado.testing.gen_test
     def test_order_accessible(self):
