@@ -18,6 +18,61 @@ class Customers(object):
     logger = logging.getLogger("Customers")
 
     @staticmethod
+    def delete(email):
+        """Deletes a customers data from the database.
+
+        :param str email: The customer's email.
+        """
+        try:
+            # Python 2
+            if not isinstance(email, (unicode, str)):
+                raise TypeError('email is not of type unicode or str.')
+        except NameError:
+            # Python 3
+            if not isinstance(email, str):
+                raise TypeError('email is not of type str.')
+
+        Customers.logger.debug(
+            "Customers.delete(%s)",
+            email)
+        client = MongoDBManager().get_client()
+        database = client["Customers"]
+        sel_cust = database.customers.find_one({"email_address": email})
+        database.customers.delete_one({"_id": sel_cust})
+
+    @staticmethod
+    def get(email):
+        """Gets information about a customer from the database.
+
+        :param str email: The customer's email.
+        :return: A dictionary containing information about the customer.
+        :rtype: dict
+        """
+        try:
+            # Python 2
+            if not isinstance(email, (unicode, str)):
+                raise TypeError('email is not of type unicode or str.')
+        except NameError:
+            # Python 3
+            if not isinstance(email, str):
+                raise TypeError('email is not of type str.')
+
+        Customers.logger.debug(
+            "Customers.delete(%s)",
+            email)
+        client = MongoDBManager().get_client()
+        database = client["Customers"]
+        sel_cust = database.customers.find_one({"email_address": email})
+        if sel_cust is not None:
+            return Customers._clone_customer(sel_cust)
+        else:
+            return None
+
+    @staticmethod
+    def _clone_customer(db_object):
+        return Customers._create_customer(db_object["email_address"], db_object["reward_points"])
+
+    @staticmethod
     def _create_customer(email, total_spent=0.0):
         """Creates a customer dict.
 
@@ -164,6 +219,7 @@ class Customers(object):
         client = MongoDBManager().get_client()
         database = client["Customers"]
         search_query = database.customers.find({"email_address": email})
+        customer = None
         if search_query is None or search_query.count() == 0:
             customer = Customers.insert(email, total_spent)
         else:
