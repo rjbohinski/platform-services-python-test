@@ -14,11 +14,15 @@ from db.customers import Customers
 
 
 class OrderHandler(tornado.web.RequestHandler):
+    """Handler for the '/order' endpoint."""
 
     logger = logging.getLogger("OrderHandler")
 
     @coroutine
     def post(self):
+        """On a post call, either add or update a customer record.
+        Requires the arguments 'email' and 'total'.
+        """
         OrderHandler.logger.debug("OrderHandler.post()")
         email = self.get_argument("email")
         total = self.get_argument("total")

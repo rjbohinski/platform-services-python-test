@@ -9,6 +9,11 @@ from pymongo import MongoClient
 
 
 class MongoDBManager(object):
+    """Simple MongoDB wrapper.
+    Used to avoid the need to specify the host and port when creating new
+    database clients.
+    """
+
     DEFAULT_DB_HOST = "mongodb"
     DEFAULT_DB_PORT = 27017
 
@@ -32,6 +37,12 @@ class MongoDBManager(object):
         self.client = None
 
     def get_client(self):
+        """Gets the MongoDB client.
+        The client is created if this is the first time calling the object.
+
+        :return: The MongoDB client.
+        :rtype: MongoClient
+        """
         if self.client is None:
             self.client = MongoClient(self.host, self.port)
         return self.client

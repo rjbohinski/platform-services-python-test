@@ -13,10 +13,19 @@ from db.mongodb_manager import MongoDBManager
 
 
 class Customers(object):
+    """Class to get rewards information from the database."""
+
     logger = logging.getLogger("Customers")
 
     @staticmethod
     def _create_customer(email, total_spent=0.0):
+        """Creates a customer dict.
+
+        :param str email: The customer's email.
+        :param float total_spent: The amount of money the customer has spent.
+        :return: A dictionary containing information about the customer.
+        :rtype: dict
+        """
         try:
             # Python 2
             if not isinstance(email, (unicode, str)):
@@ -61,6 +70,14 @@ class Customers(object):
 
     @staticmethod
     def update(email, total_spent=0.0):
+        """Updates an existing database record for a customer.
+        The total_spent value is added to the existing total.
+
+        :param str email: The customer's email.
+        :param float total_spent: The amount of money the customer has spent.
+        :return: A dictionary containing information about the customer.
+        :rtype: dict
+        """
         try:
             # Python 2
             if not isinstance(email, (unicode, str)):
@@ -90,6 +107,13 @@ class Customers(object):
 
     @staticmethod
     def insert(email, total_spent=0.0):
+        """Creates a database record for a new customer.
+
+        :param str email: The customer's email.
+        :param float total_spent: The amount of money the customer has spent.
+        :return: A dictionary containing information about the customer.
+        :rtype: dict
+        """
         try:
             # Python 2
             if not isinstance(email, (unicode, str)):
@@ -116,6 +140,13 @@ class Customers(object):
 
     @staticmethod
     def auto_insert_update(email, total_spent=0.0):
+        """Either creates or updates a database record for a customer.
+
+        :param str email: The customer's email.
+        :param float total_spent: The amount of money the customer has spent.
+        :return: A dictionary containing information about the customer.
+        :rtype: dict
+        """
         try:
             # Python 2
             if not isinstance(email, (unicode, str)):

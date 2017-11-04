@@ -12,11 +12,17 @@ from db.mongodb_manager import MongoDBManager
 
 
 class Rewards(object):
+    """Class to get rewards information from the database."""
+
     logger = logging.getLogger("Rewards")
 
     @staticmethod
     def get_tier(points):
-        Rewards.logger.setLevel(logging.DEBUG)
+        """Converts the points to tier based on the values in the DB.
+
+        :param int points: The number of points earned by the customer.
+        :return: The current tier and next tier.
+        """
         Rewards.logger.debug("Rewards.get_tier(%s)", points)
         client = MongoDBManager().get_client()
         db = client["Rewards"]
