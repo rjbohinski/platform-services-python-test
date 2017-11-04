@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+
 from pymongo import MongoClient
 
 
@@ -19,6 +26,7 @@ def main():
     db.rewards.insert({"points": 900, "rewardName": "45% off purchase", "tier": "I"})
     db.rewards.insert({"points": 1000, "rewardName": "50% off purchase", "tier": "J"})
     print("Rewards loaded in mongo")
+
 
 if __name__ == "__main__":
     main()

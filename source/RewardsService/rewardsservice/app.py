@@ -1,4 +1,11 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+from __future__ import unicode_literals
+from __future__ import division
+from __future__ import absolute_import
+from __future__ import print_function
+
 import logging
 
 import tornado.httpserver
@@ -16,6 +23,7 @@ class App(tornado.web.Application):
         self.logger = logging.getLogger(self.__class__.__name__)
 
         tornado.web.Application.__init__(self, urls, **settings)
+
 
 app = App(url_patterns)
 
