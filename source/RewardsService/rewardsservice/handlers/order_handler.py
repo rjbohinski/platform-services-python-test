@@ -44,7 +44,7 @@ class OrderHandler(tornado.web.RequestHandler):
                  "detail": "The argument 'total' was not included in the message."})
 
         # If there were any errors, return the error message.
-        if error_data is not None:
+        if error_data is not None and len(error_data) is not 0:
             self.write(json.dumps(error_data))
         else:
             OrderHandler.logger.debug("Email: %s, Total: %s", email, total)
