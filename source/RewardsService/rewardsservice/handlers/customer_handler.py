@@ -21,6 +21,20 @@ class CustomerHandler(tornado.web.RequestHandler):
     logger = logging.getLogger("CustomerHandler")
 
     @coroutine
+    def get(self):
+        """On a get call, return all customer data in a JSON format."""
+        error_data = []
+        customer = Customers.get(None)
+        if customer is None:
+                error_data.append(
+                    {"error": "CustomerNotFoundError",
+                     "detail": "No customers found in the database."})
+        if error_data is not None and len(error_data) is not 0:
+            self.write(json.dumps(error_data))
+        else:
+            self.write(bson.json_util.dumps(customer))
+
+    @coroutine
     def post(self):
         """On a post call, retrieve a customer record.
         If the 'email' argument is not provided, all customers will be returned.
@@ -48,8 +62,7 @@ class CustomerHandler(tornado.web.RequestHandler):
                 if email is None:
                     error_data.append(
                         {"error": "CustomerNotFoundError",
-                         "detail": "No customers found in the database.".format(
-                             email)})
+                         "detail": "No customers found in the database."})
                 else:
                     error_data.append(
                         {"error": "CustomerNotFoundError",

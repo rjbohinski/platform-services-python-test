@@ -24,22 +24,8 @@ class TestCustomerHandler(tornado.testing.AsyncTestCase):
         client = AsyncHTTPClient(self.io_loop)
         response = yield client.fetch("http://localhost:7050/customer", method='POST',
                                       body=urlencode({
-                                          'email_address': 'example@example.com'}))
+                                          'email_address': 'example-customer@example.com'}))
         self.assertEqual(response.code, 200)
-
-    @tornado.testing.gen_test
-    def test_customer_missing_arg(self):
-        """Call the '/customer' endpoint and test that the output and database.
-        Verifies that the output can be parsed as JSON.
-        """
-        client = AsyncHTTPClient(self.io_loop)
-        response = yield client.fetch("http://localhost:7050/customer",
-                                      method='POST',
-                                      body=urlencode({}))
-        self.assertEqual(response.code, 200)
-        data = json.loads(response.body.decode('utf-8'))
-        self.assertEqual("MissingArgumentError", data[0]["error"])
-        self.assertIn("' was not included in the message.", data[0]["detail"])
 
     @tornado.testing.gen_test
     def test_customer_not_exist(self):
