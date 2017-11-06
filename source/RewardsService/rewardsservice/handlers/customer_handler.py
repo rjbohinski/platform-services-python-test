@@ -26,9 +26,9 @@ class CustomerHandler(tornado.web.RequestHandler):
         error_data = []
         customer = Customers.get(None)
         if customer is None:
-                error_data.append(
-                    {"error": "CustomerNotFoundError",
-                     "detail": "No customers found in the database."})
+            error_data.append(
+                {"error": "CustomerNotFoundError",
+                 "detail": "No customers found in the database."})
         if error_data is not None and len(error_data) is not 0:
             self.write(json.dumps(error_data))
         else:

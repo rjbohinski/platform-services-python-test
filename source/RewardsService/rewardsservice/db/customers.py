@@ -67,7 +67,9 @@ class Customers(object):
 
     @staticmethod
     def _clone_customer(db_object):
-        return Customers._create_customer(db_object["email_address"], db_object["reward_points"])
+        return Customers._create_customer(
+            db_object["email_address"],
+            db_object["reward_points"])
 
     @staticmethod
     def _create_customer(email, total_spent=0.0):

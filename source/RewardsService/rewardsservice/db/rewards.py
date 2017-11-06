@@ -36,7 +36,8 @@ class Rewards(object):
         else:
             reward_prior = None
             for reward in rewards:
-                Rewards.logger.debug("Reward Prior: %s, Reward: %s", reward_prior, reward)
+                Rewards.logger.debug(
+                    "Reward Prior: %s, Reward: %s", reward_prior, reward)
 
                 if reward_prior is not None:
                     if reward_prior["points"] <= points < reward["points"]:
