@@ -1,10 +1,12 @@
 # Objective
+
 Create RESTful endpoint(s) to calculate, store, and retrieve customer rewards data from MongoDB.
 
 # Background
+
 * You will be using the [Tornado](http://www.tornadoweb.org) Python web framework and a MongoDB docker image.
 * When starting up the 'rewardsservice' docker container in the [Setup](#setup) below, a mongo 'Rewards' database will be created for you with a "rewards" collection containing each reward a user can earn and how many points are needed to reach each reward.
-    ```
+    ```json
     [
         { "tier": "A", "rewardName": "5% off purchase", "points": 100 },
         { "tier": "B", "rewardName": "10% off purchase", "points": 200 },
@@ -19,7 +21,8 @@ Create RESTful endpoint(s) to calculate, store, and retrieve customer rewards da
     ]
     ```
 
-# Instructions:
+# Instructions
+
 * Design and implement the following endpoints.
     * **Endpoint 1:**
         * Accept a customer's order data: **email adress**  (ex. "customer01@gmail.com") and **order total** (ex. 100.80).
@@ -36,8 +39,11 @@ Create RESTful endpoint(s) to calculate, store, and retrieve customer rewards da
 * For bonus points, add error handling and unit tests.
 
 # Setup
+
 * Install docker and docker-compose dependencies.
-* $ cd APP_PATH/platform-services-python-test/source/RewardsService
-* $ docker-compose build
-* $ docker-compose up -d
-* Services are accessible at http://localhost:7050/
+  ```bash
+  cd APP_PATH/platform-services-python-test/source/RewardsService
+  docker-compose build
+  docker-compose up -d
+  ```
+* Services are accessible at <http://localhost:7050/>.
