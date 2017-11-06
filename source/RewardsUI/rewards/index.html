@@ -27,16 +27,24 @@
     </div>
     <div>
         <h2>Add orders</h2>
-        <form>
-            <label>Enter email address: </label><input type="text"/><br>
-            <label>Enter order total: </label><input type="text"/><input type="button" value="Submit Order"/>
+        <form method="post" action="/rewards/">
+            <label>Enter email address: </label>
+            <input type="text" name="order_email"/>
+            <br>
+            <label>Enter order total: </label>
+            <input type="text" name="order_total"/>
+            <input type="button" value="Submit Order"/>
+            {% csrf_token %}
         </form>
         <hr>
     </div>
     <div>
         <h2>User Rewards</h2>
-        <form>
-            <label>Email address: </label><input type="text"/><input type="button" value="Search"/>
+        <form method="post" action="/rewards/">
+            <label>Email address: </label>
+            <input type="text" value="{% if customer_email is not None %}{{ customer_email }}{% endif %}" name="customer_email"/>
+            <input type="button" value="Search"/>
+            {% csrf_token %}
         </form>
         <table border="1">
             <thead>
