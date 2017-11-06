@@ -36,26 +36,28 @@
         </form>
         <table border="1">
             <thead>
-            <tr>
-                <th>Email Address</th>
-                <th>Reward Points</th>
-                <th>Reward Tier</th>
-                <th>Reward Tier Name</th>
-                <th>Next Reward Tier</th>
-                <th>Next Reward Tier Name</th>
-                <th>Next Reward Tier Progress</th>
-            </tr>
+                <tr>
+                    <th>Email Address</th>
+                    <th>Reward Points</th>
+                    <th>Reward Tier</th>
+                    <th>Reward Tier Name</th>
+                    <th>Next Reward Tier</th>
+                    <th>Next Reward Tier Name</th>
+                    <th>Next Reward Tier Progress</th>
+                </tr>
             </thead>
             <tbody>
+                {% for customer in customer_data %}
                 <tr>
-                    <td>customer01@gmail.com</td>
-                    <td>100</td>
-                    <td>A</td>
-                    <td>5% off purchase</td>
-                    <td>B</td>
-                    <td>10% off purchase</td>
-                    <td>50%</td>
+                    <td>{{ customer.email_address }}</td>
+                    <td>{{ customer.reward_points }}</td>
+                    <td>{% if customer.reward_tier is not None %}{{ customer.reward_tier }}{% else %}None{% endif %}</td>
+                    <td>{% if customer.reward_tier_name is not None %}{{ customer.reward_tier_name }}{% else %}None{% endif %}</td>
+                    <td>{% if customer.next_reward_tier is not None %}{{ customer.next_reward_tier }}{% else %}None{% endif %}</td>
+                    <td>{% if customer.next_reward_tier_name is not None %}{{ customer.next_reward_tier_name }}{% else %}None{% endif %}</td>
+                    <td>{% if customer.next_reward_tier_progress is not None %}{% widthratio customer.next_reward_tier_progress 1 100 %}%{% endif %}</td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
