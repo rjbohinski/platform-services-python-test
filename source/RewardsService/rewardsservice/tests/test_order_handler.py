@@ -22,7 +22,7 @@ class TestOrderHandler(tornado.testing.AsyncTestCase):
     def test_order_accessible(self):
         """Call the '/order' endpoint to verify the web server is running"""
         client = AsyncHTTPClient(self.io_loop)
-        response = yield client.fetch("http://localhost:7050/order",method='POST',
+        response = yield client.fetch("http://localhost:7050/order", method='POST',
             body=urlencode({
                 'email_address': 'example@example.com',
                 'order_total': 0.0}))
